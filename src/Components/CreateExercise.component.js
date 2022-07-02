@@ -15,12 +15,27 @@ const CreateExercise = () => {
         setExercise({...exercise, [changingProperty] : event.target.value})
     }
 
+    const onExerciseFormSubmit = (event) => {
+        event.preventDefault() ;
+        const newExercise = {
+            username : exercise.username,
+            description : exercise.description,
+            duration : Number(exercise.duration),
+            date : exercise.date
+        }
+
+        console.log(newExercise) ;
+
+        window.location = '/' ;
+    }
+
     console.log(exercise) ;
     
     return(
         <div>
             <h2>THis is Create Exercise component</h2>
-            <input type='text' name='date' onChange={onExerciseChange}/>
+            <input type='text' name='duration' onChange={onExerciseChange}/>
+            <button onClick={onExerciseFormSubmit}>Click</button>
         </div>
     ) ;
 }
