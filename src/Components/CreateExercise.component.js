@@ -1,6 +1,9 @@
-import React, {useState} from 'react' ;
+import React, {useEffect, useRef, useState} from 'react' ;
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css' ;
 
 const CreateExercise = () => {
+    const userInput = useRef(null) ;//Used in ref in form
     const [exercise, setExercise] = useState({
         username : '',
         description : '' ,
@@ -10,13 +13,18 @@ const CreateExercise = () => {
 
     const [users, setUsers] = useState([]) ;
 
+    useEffect(() => {
+        setUsers([...users, "Tharaka", "Dimuthu", "Kawya"]) ;
+        setExercise({...exercise, username: 'Tharaka'}) ;
+    }, [])
+
     const onExerciseChange = (event) => {
         const changingProperty = event.target.name ;
         setExercise({...exercise, [changingProperty] : event.target.value})
     }
 
     const onExerciseFormSubmit = (event) => {
-        event.preventDefault() ;
+        event.preventDefault();
         const newExercise = {
             username : exercise.username,
             description : exercise.description,
@@ -26,16 +34,84 @@ const CreateExercise = () => {
 
         console.log(newExercise) ;
 
-        window.location = '/' ;
+        window.location = "http://localhost:3000/";
     }
 
-    console.log(exercise) ;
+    const renderUsernames = () => {
+        return(users.map(user => {
+            return(
+                <option key={user} value={user}>
+                    {user}
+                </option>
+            ) ;
+        })) ;
+    }
     
     return(
         <div>
-            <h2>THis is Create Exercise component</h2>
-            <input type='text' name='duration' onChange={onExerciseChange}/>
-            <button onClick={onExerciseFormSubmit}>Click</button>
+            <h3>Create New Exercise Log</h3>
+            <form onSubmit={onExerciseFormSubmit}>
+                <div className="form-group row my-3">
+                    <label className='col-sm-2 col-form-label'>Username</label>
+                    <div className='col-sm-6'>
+                        <select 
+                            className="form-control " 
+                            ref={userInput} 
+                            required
+                            value={exercise.username} 
+                            name='username' 
+                            onChange={onExerciseChange}
+                        >
+                            {
+                            renderUsernames()
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div className='form-group row my-3'>
+                    <label className='col-sm-2 col-form-label'>Description</label>
+                    <div className='col-sm-6'>
+                        <input
+                            type='text'
+                            required
+                            className='form-control'
+                            value={exercise.description}
+                            name='description' 
+                            onChange={onExerciseChange}
+                        />
+                    </div>
+                </div>
+                <div className='form-group row my-3'>
+                    <label className='col-sm-2 col-form-label'>Duration</label>
+                    <div className='col-sm-6'>
+                        <input
+                            type='text'
+                            required
+                            className='form-control'
+                            value={exercise.duration}
+                            name='duration' 
+                            onChange={onExerciseChange}
+                        />
+                    </div>
+                </div>
+                <div className='form-group row my-3'>
+                    <label className='col-sm-2 col-form-label'>Date</label>
+                    <div className='col-sm-6'>
+                        <DatePicker
+                            name='date'
+                            selected={exercise.date}
+                            onChange={(e) =>{
+                                setExercise(() => {
+                                    return({...exercise, date: e}) ;
+                                })
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className='form-group my-3 mx-4'>
+                    <input type='submit' className='btn btn-primary' value='Create Exercise Log'/>
+                </div>
+            </form>
         </div>
     ) ;
 }
