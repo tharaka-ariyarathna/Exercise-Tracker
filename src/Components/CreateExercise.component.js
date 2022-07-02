@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react' ;
+import axios from '../axios/axios' ;
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css' ;
 
@@ -13,8 +14,16 @@ const CreateExercise = () => {
 
     const [users, setUsers] = useState([]) ;
 
+    const getAllUsers = async () => {
+        const response = await axios.get('users/') ;
+        const allUsers = response.data.map(user => {
+            return user.username ;
+        })
+        setUsers(allUsers) ;
+    }
+
     useEffect(() => {
-        setUsers([...users, "Tharaka", "Dimuthu", "Kawya"]) ;
+        getAllUsers() ;
         setExercise({...exercise, username: 'Tharaka'}) ;
     }, [])
 
