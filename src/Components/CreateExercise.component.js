@@ -108,7 +108,7 @@ const CreateExercise = () => {
                         />
                     </div>
                 </div>
-                <div className='form-group my-3 mx-4'>
+                <div className='form-group my-3 col-md-2 offset-md-2'>
                     <input type='submit' className='btn btn-primary' value='Create Exercise Log'/>
                 </div>
             </form>

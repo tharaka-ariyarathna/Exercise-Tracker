@@ -33,7 +33,7 @@ const CreateUser = () => {
                         />
                     </div>
                 </div>
-                <div className='form-group my-3 mx-4'>
+                <div className='form-group row my-3 col-md-2 offset-md-3'>
                     <input type='submit' className='btn btn-primary' value='Create User'/>
                 </div>
             </form>
