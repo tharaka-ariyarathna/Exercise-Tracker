@@ -10,18 +10,18 @@ import CreateUser from './Components/CreateUser.component' ;
 
 const App = () => {
     return(
-        <div className='container'>
-            <Router >
-            <Navbar/>
-            <br/>
-            <Routes>
-                <Route path="/" exact element={<ExerciseList />} />
-                <Route path="/edit/:id" element={<EditExercise />} />
-                <Route path="/create" element={<CreateExercise />} />
-                <Route path="/user" element={<CreateUser />} />        
-            </Routes>
+        <Router >
+            <div className='container'>
+                <Navbar/>
+                <br/>
+                <Routes>
+                    <Route path="/" exact element={<ExerciseList />} />
+                    <Route path="/edit/:id" element={<EditExercise />} />
+                    <Route path="/create" element={<CreateExercise />} />
+                    <Route path="/user" element={<CreateUser />} />        
+                </Routes>
+            </div>
         </Router>
-        </div>
     ) ;
 }
 
