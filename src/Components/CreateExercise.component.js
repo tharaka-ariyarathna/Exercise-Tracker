@@ -24,12 +24,17 @@ const CreateExercise = () => {
 
     useEffect(() => {
         getAllUsers() ;
-        setExercise({...exercise, username: 'Tharaka'}) ;
+        setExercise({...exercise, username: users[0]}) ;
     }, [])
 
     const onExerciseChange = (event) => {
         const changingProperty = event.target.name ;
         setExercise({...exercise, [changingProperty] : event.target.value})
+    }
+
+    const saveExercise = async (exercise) => {
+        const response = await axios.post('exercises/add', exercise) ;
+        console.log(response.data) ;
     }
 
     const onExerciseFormSubmit = (event) => {
@@ -41,7 +46,7 @@ const CreateExercise = () => {
             date : exercise.date
         }
 
-        console.log(newExercise) ;
+        saveExercise(newExercise) ;
 
         window.location = "http://localhost:3000/";
     }
