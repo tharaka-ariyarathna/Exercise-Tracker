@@ -24,8 +24,11 @@ const CreateExercise = () => {
 
     useEffect(() => {
         getAllUsers() ;
+    }, []) ;
+
+    useEffect(() => {
         setExercise({...exercise, username: users[0]}) ;
-    }, [])
+    }, [users[0]]) ;
 
     const onExerciseChange = (event) => {
         const changingProperty = event.target.name ;
@@ -48,7 +51,7 @@ const CreateExercise = () => {
 
         saveExercise(newExercise) ;
 
-        window.location = "http://localhost:3000/";
+        window.location = "http://localhost:3000/" ;
     }
 
     const renderUsernames = () => {
